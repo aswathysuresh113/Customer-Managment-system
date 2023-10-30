@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -71,7 +72,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    void testCustomerCreate(){
+    void testCustomerCreate()throws Exception{
         String path = "/customers/create";
         Customer customer= new Customer();
         customer.setFirstName("abc");
@@ -86,15 +87,27 @@ public class CustomerControllerTest {
                 customer.getMobileNumber(),
                 customer.getEmail());
 
-        when(service.createCustomer(request)).thenReturn(customer.getId());
+        when(service.createCustomer(request)).thenReturn(1L);
 
 
-      /*  mockMvc.perform(get(path))
-                *//*.contentType("application/json")
-                .content("{\"firstName\":\"abc\",\"lastName\":\"xyz\",\"city\":\"aaa\",\"mobileNumber\":\"12345\",\"email\":\"xyz@gmail.com\"}"))*//*
+            mockMvc.perform(post(path))
                 .andExpect(status().isOk())
-                .andExpect(content().string("1"));
-*/
+                .andExpect(content().string(customer.getId().toString()));
+
+    }
+
+    @Test
+    void DeleteCustomerByIdTest()throws Exception{
+        String path= "/customers/delete/1";
+        Customer customer= new Customer();
+
+        customer.setId(1L);
+
+        when(service.deleteCustomer(customer.getId())).thenReturn("Customer deleted Successfully");
+
+
+        mockMvc.perform(delete(path))
+                .andExpect(status().isOk());
 
     }
 }
