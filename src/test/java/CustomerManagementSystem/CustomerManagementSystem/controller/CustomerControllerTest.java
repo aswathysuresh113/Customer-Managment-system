@@ -1,5 +1,6 @@
 package CustomerManagementSystem.CustomerManagementSystem.controller;
 
+import CustomerManagementSystem.CustomerManagementSystem.contract.CustomerRequest;
 import CustomerManagementSystem.CustomerManagementSystem.model.Customer;
 import CustomerManagementSystem.CustomerManagementSystem.service.CustomerService;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -64,6 +67,34 @@ public class CustomerControllerTest {
         mockMvc.perform(get(path))
                 .andExpect(status().isOk());
 
+
+    }
+
+    @Test
+    void testCustomerCreate(){
+        String path = "/customers/create";
+        Customer customer= new Customer();
+        customer.setFirstName("abc");
+        customer.setLastName("xyz");
+        customer.setCity("aaa");
+        customer.setMobileNumber("12345");
+        customer.setEmail("xyz@gmail.com");
+        customer.setId(1L);
+        CustomerRequest request = new CustomerRequest(customer.getFirstName(),
+                customer.getLastName(),
+                customer.getCity(),
+                customer.getMobileNumber(),
+                customer.getEmail());
+
+        when(service.createCustomer(request)).thenReturn(customer.getId());
+
+
+      /*  mockMvc.perform(get(path))
+                *//*.contentType("application/json")
+                .content("{\"firstName\":\"abc\",\"lastName\":\"xyz\",\"city\":\"aaa\",\"mobileNumber\":\"12345\",\"email\":\"xyz@gmail.com\"}"))*//*
+                .andExpect(status().isOk())
+                .andExpect(content().string("1"));
+*/
 
     }
 }

@@ -70,8 +70,8 @@ public class CustomerServiceTest {
     @Test
     void CreateCustomerTest(){
         Customer customer= new Customer();
-        customer.setFirstName("test");
-        customer.setLastName("user");
+        customer.setFirstName("abc");
+        customer.setLastName("xyz");
         customer.setCity("aaa");
         customer.setMobileNumber("12345");
         customer.setEmail("xyz@gmail.com");
@@ -94,8 +94,8 @@ public class CustomerServiceTest {
     @Test
     void DeleteCustomerByIdTest(){
         Customer customer= new Customer();
-        customer.setFirstName("test");
-        customer.setLastName("user");
+        customer.setFirstName("abc");
+        customer.setLastName("xyz");
         customer.setCity("aaa");
         customer.setMobileNumber("12345");
         customer.setEmail("xyz@gmail.com");
@@ -113,8 +113,8 @@ public class CustomerServiceTest {
     @Test
     void UpdateCustomerTest(){
         Customer customer= new Customer();
-        customer.setFirstName("test");
-        customer.setLastName("user");
+        customer.setFirstName("abc");
+        customer.setLastName("xyz");
         customer.setCity("aaa");
         customer.setMobileNumber("12345");
         customer.setEmail("xyz@gmail.com");
